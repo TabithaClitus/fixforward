@@ -39,8 +39,9 @@ const Login = () => {
         };
       }
       
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       const endpoint = isLogin ? '/login' : '/register';
-      const response = await axios.post(`http://localhost:8000${endpoint}`, payload);
+      const response = await axios.post(`${apiUrl}${endpoint}`, payload);
       
       if (isLogin) {
         localStorage.setItem('sccin_token', response.data.access_token);

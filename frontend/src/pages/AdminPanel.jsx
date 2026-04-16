@@ -16,7 +16,8 @@ const AdminPanel = () => {
 
   const fetchData = async () => {
     try {
-      const alertRes = await axios.get('http://localhost:8000/alerts');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const alertRes = await axios.get(`${apiUrl}/alerts`);
       setAlerts(alertRes.data);
     } catch (error) {
       console.error(error);
@@ -33,7 +34,8 @@ const AdminPanel = () => {
     e.preventDefault();
     setStatusMsg('Sending Broadcast...');
     try {
-      await axios.post('http://localhost:8000/alerts/create', alertForm);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      await axios.post(`${apiUrl}/alerts/create`, alertForm);
       setStatusMsg('Alert Broadcast Successful!');
       setAlertForm({ title: '', message: '', priority: 'Medium' });
       fetchData();

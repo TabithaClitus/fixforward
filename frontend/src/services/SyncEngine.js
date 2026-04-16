@@ -35,7 +35,8 @@ class SyncEngine {
       const user = JSON.parse(localStorage.getItem('sccin_user') || '{}');
       if (!user.id) throw new Error('No user context for sync');
 
-      const response = await axios.post('http://localhost:8000/sync-reports', unsynced, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await axios.post(`${apiUrl}/sync-reports`, unsynced, {
         params: { user_id: user.id },
         timeout: 10000
       });

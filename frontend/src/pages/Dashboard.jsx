@@ -22,7 +22,8 @@ const Dashboard = () => {
   const fetchAlerts = async () => {
     try {
       setError(null);
-      const response = await axios.get('http://localhost:8000/alerts');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await axios.get(`${apiUrl}/alerts`);
       setAlerts(response.data || []);
       if (response.data) {
         response.data.forEach(a => saveAlert(a));

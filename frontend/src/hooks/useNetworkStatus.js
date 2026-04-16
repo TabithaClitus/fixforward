@@ -17,7 +17,8 @@ export const useNetworkStatus = () => {
     // Heartbeat to check for Local Hub (simulated)
     const checkLocalHub = async () => {
       try {
-        const res = await fetch('http://localhost:8000/health', { timeout: 1000 });
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${apiUrl}/health`, { timeout: 1000 });
         if (res.ok) {
           setStatus(s => ({ ...s, isLocalHub: true, mode: status.isOnline ? 'CLOUD' : 'LOCAL_HUB' }));
         }

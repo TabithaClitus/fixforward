@@ -37,7 +37,8 @@ const ReportIncident = () => {
 
     try {
       if (navigator.onLine) {
-        await axios.post('http://localhost:8000/reports', reportData);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        await axios.post(`${apiUrl}/reports`, reportData);
         setStatus('success');
       } else {
         await queueReport(reportData);
